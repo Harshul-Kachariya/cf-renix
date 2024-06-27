@@ -1090,7 +1090,7 @@ var HelloWorld1 = (() => {
             }
             return dispatcher.useContext(Context);
           }
-          function useState(initialState) {
+          function useState2(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1102,7 +1102,7 @@ var HelloWorld1 = (() => {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect(create, deps) {
+          function useEffect2(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1885,7 +1885,7 @@ var HelloWorld1 = (() => {
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect;
+          exports.useEffect = useEffect2;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -1893,7 +1893,7 @@ var HelloWorld1 = (() => {
           exports.useMemo = useMemo;
           exports.useReducer = useReducer;
           exports.useRef = useRef;
-          exports.useState = useState;
+          exports.useState = useState2;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -1924,7 +1924,7 @@ var HelloWorld1 = (() => {
       if (true) {
         (function() {
           "use strict";
-          var React2 = require_react();
+          var React = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -1950,7 +1950,7 @@ var HelloWorld1 = (() => {
             }
             return null;
           }
-          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -2830,11 +2830,8 @@ var HelloWorld1 = (() => {
   var import_react = __toESM(require_react(), 1);
   var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
   function HelloWorld1() {
-    const [data, setData] = import_react.default.useState({
-      title: "hello",
-      body: "hello body"
-    });
-    import_react.default.useEffect(() => {
+    const [data, setData] = (0, import_react.useState)(null);
+    (0, import_react.useEffect)(() => {
       fetch("https://jsonplaceholder.typicode.com/posts/1").then((response) => response.json()).then((data2) => setData(data2));
     }, []);
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [

@@ -20,19 +20,34 @@
     ></script>
 
     <!-- Importing the bundled React components from the Remix.run site -->
-    <script src="./public/hello1.js" async defer></script>
-    <script src="./public/hello2.js" async defer></script>
+    <script src="./public/hello1.js"></script>
+    <script src="./public/hello2.js"></script>
 
     <script>
-      // hello1.js
-      window.HelloWorld1 = function () {
-        return React.createElement("h1", null, "Hello World 1");
-      };
+      window.addEventListener("load", () => {
+        const { HelloWorld1 } = window;
+        const { HelloWorld2 } = window;
 
-      // hello2.js
-      window.HelloWorld2 = function () {
-        return React.createElement("h1", null, "Hello World 2");
-      };
+        console.log(HelloWorld1);
+
+        // hello1.js
+        window.HelloWorld1 = function () {
+          return React.createElement(
+            "h1",
+            null,
+            "Hello World 1 - If you see this, it worked!"
+          );
+        };
+
+        // hello2.js
+        window.HelloWorld2 = function () {
+          return React.createElement(
+            "h1",
+            null,
+            "Hello World 2 - If you see this, it worked!"
+          );
+        };
+      });
     </script>
   </body>
 </html>

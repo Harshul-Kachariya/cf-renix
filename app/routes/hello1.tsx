@@ -1,16 +1,9 @@
-import React from "react";
-type Data = {
-  title: string;
-  body: string;
-};
+import { useEffect, useState } from "react";
 
 export default function HelloWorld1() {
-  const [data, setData] = React.useState<Data>({
-    title: "hello",
-    body: "hello body",
-  });
+  const [data, setData] = useState<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts/1")
       .then((response) => response.json())
       .then((data) => setData(data));
