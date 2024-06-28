@@ -25,4 +25,5 @@ const HelloWorld2: React.FC = () => {
   );
 };
 
-ReactDOM.render(<HelloWorld2 />, document.getElementById("root2"));
+export default HelloWorld2 ||
+  ReactDOM.render(<HelloWorld2 />, document.getElementById("root2"));
