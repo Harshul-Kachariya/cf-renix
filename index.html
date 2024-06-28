@@ -29,24 +29,17 @@
         const { HelloWorld2 } = window;
 
         console.log(HelloWorld1);
+        console.log(HelloWorld2);
 
-        // hello1.js
-        window.HelloWorld1 = function () {
-          return React.createElement(
-            "h1",
-            null,
-            "Hello World 1 - If you see this, it worked!"
-          );
-        };
+        ReactDOM.createRoot(
+          React.createElement(HelloWorld1),
+          document.getElementById("root1")
+        );
 
-        // hello2.js
-        window.HelloWorld2 = function () {
-          return React.createElement(
-            "h1",
-            null,
-            "Hello World 2 - If you see this, it worked!"
-          );
-        };
+        ReactDOM.createRoot(
+          React.createElement(HelloWorld2),
+          document.getElementById("root2")
+        );
       });
     </script>
   </body>
