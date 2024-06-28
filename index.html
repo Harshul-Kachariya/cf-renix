@@ -9,38 +9,16 @@
     <div id="root1"></div>
     <div id="root2"></div>
 
-    <!-- Importing React and ReactDOM from a CDN -->
     <script
-      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
     ></script>
     <script
-      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
     ></script>
 
-    <!-- Importing the bundled React components from the Remix.run site -->
     <script src="./public/hello1.js"></script>
     <script src="./public/hello2.js"></script>
-
-    <script>
-      window.addEventListener("load", () => {
-        const { HelloWorld1 } = window;
-        const { HelloWorld2 } = window;
-
-        console.log(HelloWorld1);
-        console.log(HelloWorld2);
-
-        ReactDOM.createRoot(
-          React.createElement(HelloWorld1),
-          document.getElementById("root1")
-        );
-
-        ReactDOM.createRoot(
-          React.createElement(HelloWorld2),
-          document.getElementById("root2")
-        );
-      });
-    </script>
   </body>
 </html>

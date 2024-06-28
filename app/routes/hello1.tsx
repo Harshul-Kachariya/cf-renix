@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 
-export default function HelloWorld1() {
+const HelloWorld1: React.FC = () => {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -22,4 +23,6 @@ export default function HelloWorld1() {
       )}
     </div>
   );
-}
+};
+
+ReactDOM.render(<HelloWorld1 />, document.getElementById("root1"));
