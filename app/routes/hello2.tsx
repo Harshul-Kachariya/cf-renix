@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 
-const HelloWorld2: React.FC = () => {
+export default function HelloWorld2() {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -23,7 +23,4 @@ const HelloWorld2: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default HelloWorld2 ||
-  ReactDOM.render(<HelloWorld2 />, document.getElementById("root2"));
+}

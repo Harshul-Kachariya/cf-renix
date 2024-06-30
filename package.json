@@ -8,6 +8,7 @@
     "dev": "remix vite:dev",
     "build:component1": "remix build && esbuild app/routes/hello1.tsx --outfile=public/hello1.js --bundle --format=iife --global-name=HelloWorld1",
     "build:component2": "remix build && esbuild app/routes/hello2.tsx --outfile=public/hello2.js --bundle --format=iife --global-name=HelloWorld2",
+    "build:component": "remix build && esbuild app/all.tsx --outfile=public/all.js --bundle --format=iife --global-name=AllComponents",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
