@@ -1,5 +1,6 @@
 import React from "react";
 import { Links, LiveReload, Meta, Outlet, Scripts } from "@remix-run/react";
+import "./tailwind.css";
 
 export default function App() {
   return (
