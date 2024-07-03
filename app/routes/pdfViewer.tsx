@@ -4,10 +4,10 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
-const PdfViewer = () => {
+export default function PdfViewer() {
+  const [isOpen, setIsOpen] = useState(false);
   const [file, setFile] = useState<any>(null);
   const [fileUrl, setFileUrl] = useState<any>(null);
-  const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const [pdfBlobUrl, setPdfBlobUrl] = useState<string>("");
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -21,7 +21,6 @@ const PdfViewer = () => {
         const response = await fetch(fileUrl);
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
-        setPdfBlob(blob);
         setPdfBlobUrl(url);
       } else {
         console.log("Error while loading pdf");
@@ -29,8 +28,11 @@ const PdfViewer = () => {
     };
 
     fetchData();
-    console.log("file", file);
-    console.log("fileurl", fileUrl);
+    return () => {
+      if (pdfBlobUrl) {
+        URL.revokeObjectURL(pdfBlobUrl);
+      }
+    };
   }, [file, fileUrl]);
 
   const handleChange = (e: any) => {
@@ -41,40 +43,45 @@ const PdfViewer = () => {
     }
   };
 
-  return (
-    <div className="relative p-5">
-      <div className="flex gap-4  items-center ">
-        <input
-          id="pdfFile"
-          type="file"
-          accept="application/pdf"
-          onChange={handleChange}
-          className="inline-flex justify-center items-center p-1 text-md font-bold shadow-2xl rounded-lg text-center w-64 h-10 text-gray-500 "
-        />
-        <span className="text-md text-gray-500">OR</span>
-        <input
-          id="pdfFileUrl"
-          type="text"
-          placeholder="Enter file url"
-          onChange={handleChange}
-          className="inline-flex justify-center items-center p-1 text-lg font-bold shadow-2xl rounded-lg text-center w-full h-10 text-gray-500  "
-        />
-      </div>
+  const handleClick = () => {
+    setIsOpen((p) => !p);
+    console.log("clicked");
+  };
 
-      {(file || fileUrl) && (
-        <div className="w-full h-[calc(100vh-90px)] mt-5">
-          {pdfBlobUrl && (
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js ">
-              <Viewer
-                fileUrl={pdfBlobUrl}
-                plugins={[defaultLayoutPluginInstance]}
-              />
-            </Worker>
-          )}
+  return (
+    <div>
+      <div className="relative p-5">
+        <div className="flex gap-4  items-center ">
+          <input
+            id="pdfFile"
+            type="file"
+            accept="application/pdf"
+            onChange={handleChange}
+            className="inline-flex justify-center items-center p-1 text-md font-bold shadow-2xl rounded-lg text-center w-64 h-10 text-gray-500 "
+          />
+          <span className="text-md text-gray-500">OR</span>
+          <input
+            id="pdfFileUrl"
+            type="text"
+            placeholder="Enter file url"
+            onChange={handleChange}
+            className="inline-flex justify-center items-center p-1 text-lg font-bold shadow-2xl rounded-lg text-center w-full h-10 text-gray-500  "
+          />
         </div>
-      )}
+
+        {(file || fileUrl) && (
+          <div className="w-full h-[calc(100vh-90px)] mt-5">
+            {pdfBlobUrl && (
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js">
+                <Viewer
+                  fileUrl={pdfBlobUrl}
+                  plugins={[defaultLayoutPluginInstance]}
+                />
+              </Worker>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-export default PdfViewer;
+}

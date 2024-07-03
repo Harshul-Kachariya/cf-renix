@@ -10,16 +10,18 @@ export default function HelloWorld2() {
   }, []);
 
   return (
-    <div className="p-5">
-      <h1 className="text-xl font-bold ">Hello World 2 Component</h1>
-      {data ? (
-        <div>
-          <h2>{data.title}</h2>
-          <p>{data.body}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <>
+      <div className="p-5">
+        <h2 className="text-xl font-bold ">Hello World 2 Component</h2>
+        {data ? (
+          <div>
+            <h2>{data.title}</h2>
+            <p>{data.body}</p>
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    </>
   );
 }

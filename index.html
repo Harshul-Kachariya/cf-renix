@@ -4,29 +4,76 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Load React Components with Web Workers</title>
-    <link rel="stylesheet" href="./public/pdfViewer.worker.css" />
+    <link rel="stylesheet" href="./public/client.bundle.css" />
+    <link rel="stylesheet" href="./public/pdfViewer.worker.bundle.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div id="root1"></div>
-    <div id="root2"></div>
-    <div id="root3"></div>
+  <body class="p-6">
+    <div class="mb-4">
+      <button id="hello1Btn" class="px-4 py-2 bg-black text-white rounded mr-2">
+        Hello 1
+      </button>
+      <button id="hello2Btn" class="px-4 py-2 bg-black text-white rounded mr-2">
+        Hello 2
+      </button>
+      <button id="pdfBtn" class="px-4 py-2 bg-black text-white rounded">
+        PDF
+      </button>
+    </div>
+    <div id="hello1" class="component hidden"></div>
+    <div id="hello2" class="component hidden"></div>
+    <div id="pdf" class="component hidden"></div>
 
     <script src="https://unpkg.com/comlink/dist/umd/comlink.js"></script>
 
-    <script>
-      async function loadComponent(workerScript, rootId) {
-        const worker = new Worker(workerScript);
-        const { renderComponent } = Comlink.wrap(worker);
+    <script type="module">
+      const components = [
+        { id: "hello1", worker: "./public/hello1.worker.bundle.js" },
+        { id: "hello2", worker: "./public/hello2.worker.bundle.js" },
+        { id: "pdf", worker: "./public/pdfViewer.worker.bundle.js" },
+      ];
 
-        const html = await renderComponent();
-        document.getElementById(rootId).innerHTML = html;
-        worker.terminate();
+      async function loadComponent(workerScript, rootId) {
+        const root = document.getElementById(rootId);
+        root.innerHTML = "Loading...";
+
+        try {
+          const worker = new Worker(workerScript, { type: "module" });
+          const { renderComponent } = Comlink.wrap(worker);
+          const html = await renderComponent();
+          root.innerHTML = html;
+          worker.terminate();
+          await import("./public/client.bundle.js");
+        } catch (error) {
+          console.error(`Error loading component: ${error}`);
+          root.innerHTML = "Error loading component";
+        }
       }
 
-      loadComponent("./public/hello1.worker.js", "root1");
-      loadComponent("./public/hello2.worker.js", "root2");
-      loadComponent("./public/pdfViewer.worker.js", "root3");
+      function showComponent(componentId) {
+        document
+          .querySelectorAll(".component")
+          .forEach((el) => el.classList.add("hidden"));
+        const componentElement = document.getElementById(componentId);
+        componentElement.classList.remove("hidden");
+
+        if (componentElement.innerHTML === "") {
+          const component = components.find((c) => c.id === componentId);
+          if (component) {
+            loadComponent(component.worker, componentId);
+          }
+        }
+      }
+
+      document
+        .getElementById("hello1Btn")
+        .addEventListener("click", () => showComponent("hello1"));
+      document
+        .getElementById("hello2Btn")
+        .addEventListener("click", () => showComponent("hello2"));
+      document
+        .getElementById("pdfBtn")
+        .addEventListener("click", () => showComponent("pdf"));
     </script>
   </body>
 </html>
