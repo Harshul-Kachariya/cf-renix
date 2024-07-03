@@ -3,25 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Load React Components from Remix.run</title>
-    <link rel="stylesheet" href="./public/all.css" />
-
+    <title>Load React Components with Web Workers</title>
+    <link rel="stylesheet" href="./public/pdfViewer.worker.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div id="root3"></div>
     <div id="root1"></div>
     <div id="root2"></div>
+    <div id="root3"></div>
 
-    <script
-      src="https://unpkg.com/react@18/umd/react.development.js"
-      crossorigin
-    ></script>
-    <script
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-      crossorigin
-    ></script>
+    <script src="https://unpkg.com/comlink/dist/umd/comlink.js"></script>
 
-    <script src="./public//all.js"></script>
+    <script>
+      async function loadComponent(workerScript, rootId) {
+        const worker = new Worker(workerScript);
+        const { renderComponent } = Comlink.wrap(worker);
+
+        const html = await renderComponent();
+        document.getElementById(rootId).innerHTML = html;
+        worker.terminate();
+      }
+
+      loadComponent("./public/hello1.worker.js", "root1");
+      loadComponent("./public/hello2.worker.js", "root2");
+      loadComponent("./public/pdfViewer.worker.js", "root3");
+    </script>
   </body>
 </html>

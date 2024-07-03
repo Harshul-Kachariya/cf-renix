@@ -29,6 +29,8 @@ const PdfViewer = () => {
     };
 
     fetchData();
+    console.log("file", file);
+    console.log("fileurl", fileUrl);
   }, [file, fileUrl]);
 
   const handleChange = (e: any) => {
@@ -41,7 +43,7 @@ const PdfViewer = () => {
 
   return (
     <div className="relative p-5">
-      <div className="flex gap-4">
+      <div className="flex gap-4  items-center ">
         <input
           id="pdfFile"
           type="file"
@@ -49,6 +51,7 @@ const PdfViewer = () => {
           onChange={handleChange}
           className="inline-flex justify-center items-center p-1 text-md font-bold shadow-2xl rounded-lg text-center w-64 h-10 text-gray-500 "
         />
+        <span className="text-md text-gray-500">OR</span>
         <input
           id="pdfFileUrl"
           type="text"
@@ -58,16 +61,18 @@ const PdfViewer = () => {
         />
       </div>
 
-      <div className="w-full h-[calc(100vh-90px)] mt-5">
-        {pdfBlobUrl && (
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js ">
-            <Viewer
-              fileUrl={pdfBlobUrl}
-              plugins={[defaultLayoutPluginInstance]}
-            />
-          </Worker>
-        )}
-      </div>
+      {(file || fileUrl) && (
+        <div className="w-full h-[calc(100vh-90px)] mt-5">
+          {pdfBlobUrl && (
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js ">
+              <Viewer
+                fileUrl={pdfBlobUrl}
+                plugins={[defaultLayoutPluginInstance]}
+              />
+            </Worker>
+          )}
+        </div>
+      )}
     </div>
   );
 };

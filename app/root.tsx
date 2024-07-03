@@ -1,6 +1,8 @@
 import React from "react";
 import { Links, LiveReload, Meta, Outlet, Scripts } from "@remix-run/react";
 import "./tailwind.css";
+import Index from "./routes/_index";
+import Header from "./Components/header";
 
 export default function App() {
   return (
@@ -12,6 +14,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Header />
         <Outlet />
         <Scripts />
         <LiveReload />

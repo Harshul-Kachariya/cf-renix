@@ -1,6 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import HelloWorld1 from "./hello1";
-import HelloWorld2 from "./hello2";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,10 +9,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
-      <HelloWorld1 />
-      <HelloWorld2 />
+    <div className="font-sans p-4 text-2xl">
+      Welcome to Web Click on above link to show an components
     </div>
   );
 }
