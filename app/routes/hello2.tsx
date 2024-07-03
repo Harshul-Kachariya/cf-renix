@@ -7,10 +7,7 @@ export default function HelloWorld2() {
     fetch("https://jsonplaceholder.typicode.com/posts/2")
       .then((response) => response.json())
       .then((data) => setData(data));
-    console.log(data, "1");
   }, []);
-
-  console.log(data, "2");
 
   return (
     <div className="p-5">
