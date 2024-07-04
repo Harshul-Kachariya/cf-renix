@@ -5,7 +5,6 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 export default function PdfViewer() {
-  const [isOpen, setIsOpen] = useState(false);
   const [file, setFile] = useState<any>(null);
   const [fileUrl, setFileUrl] = useState<any>(null);
   const [pdfBlobUrl, setPdfBlobUrl] = useState<string>("");
@@ -41,11 +40,6 @@ export default function PdfViewer() {
     } else {
       setFileUrl(e.target.value);
     }
-  };
-
-  const handleClick = () => {
-    setIsOpen((p) => !p);
-    console.log("clicked");
   };
 
   return (
